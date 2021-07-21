@@ -1,5 +1,6 @@
-소개
+AWS Terraform을 이용한 Static website 구축 템플릿
 ==============
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 간단한 웹사이트 호스팅을 [Amazon AWS](https://aws.amazon.com/)을 이용하여 구축하거나, 특정 도메인에 접속한 사용자를 다른 사이트로 리다렉트(redirect) 시키는데 유용한 [Terraform](https://www.terraform.io/) 설정 파일입니다. AWS 콘솔에서 이런 종류의 작업이 가능하지만, Terraform을 이용할 경우 매우 빠르고 간편하게 사이트를 구축할 수 있습니다.
 
 주요 특징
