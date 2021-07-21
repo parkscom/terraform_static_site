@@ -57,7 +57,7 @@ Initializing provider plugins...
 ... ...  ...
 ```
 
-5. 사이트 구성을 위한 환경 변수 파일 설정 (여기서는 `example_com.tfvars`로 지정합니다.)
+5. 사이트 구성을 위한 환경 변수 파일 설정을 수정합니다.
 ```bash
 # Terraform으로 사이트를 구성하기 위해서는 3개의 환경 변수를 입력합니다.
 # region - AWS 구성을 위한 Region
@@ -65,7 +65,7 @@ Initializing provider plugins...
 # site_name - 구성될 사이트의 서비스 이름 (S3의 Bucket의 이름으로 구성 사용되므로 전체 S3 사이트에서 유일한 값을 지정합니다.)
 
 
-$cat example_com.tfvars
+$cat terraform.tfvars
 region      = "ap-northeast-2"
 site_name   = "example-com"
 site_domain = "www.example.com"
@@ -73,9 +73,9 @@ site_domain = "www.example.com"
 
 6. Terraform을 이용하여 구성될 인스턴스 계획(plan)을 확인하고, CloudFront, S3 등의 인스턴스를 생성 (apply)
 ```
-$ terraform plan -var-file example_com.tfvars
+$ terraform plan
 
-$ terraform apply -var-file example_com.tfvars
+$ terraform apply
 ```
 
 7. 첫번째 `terraform apply`에서는 아래와 같은 오류가 발생하게 됩니다. 이 오류는 ACM에서 certification이 아직 정상적으로 생성되지 않았기 때문입니다. 
@@ -87,7 +87,7 @@ Error: error creating CloudFront Distribution: InvalidViewerCertificate: The spe
 
 8. ACM 관리자에서 정상적으로 도메인이 발급되었다면, 다시 한번 `terraform apply` 명령을 실행하여 구성을 마무리합니다.
 ```
-$ terraform apply -var-file example_com.tfvars
+$ terraform apply
 ```
 
 9. 이제 [AWS S3 콘솔](https://console.aws.amazon.com/acm/) 또는 AWS CLI를 이용하여 HTML과 이미지 파일 등의 컨텐츠를 업로드합니다. 사이트의 시작 페이지는 index.html로 지정합니다. 컨텐츠 업로드가 완료되면, https://www.example.com/로 접속하여 사이트가 정상적으로 동작하는지 확인합니다.
@@ -103,7 +103,7 @@ $ cp -r redirect_site example_redirect_site
 ```
 3. AWS 연결을 위한 환경 변수를 설정
 4. Terraform 초기화
-5. 사이트 구성을 위한 환경 변수 파일 설정 (여기서는 `example_redirect.tfvars`로 지정합니다.)
+5. 사이트 구성을 위한 환경 변수 파일 설정
 ```bash
 # Redirect 사이트 구축을 위해서는 4개의 환경 변수를 입력합니다.
 # region - AWS 구성을 위한 Region
@@ -111,7 +111,7 @@ $ cp -r redirect_site example_redirect_site
 # site_name - 구성될 사이트의 서비스 이름 (S3의 Bucket의 이름으로 구성 사용되므로 전체 S3 사이트에서 유일한 값을 지정합니다.)
 # redirect_domain - 구성될 사이트의 최종 도메인 이름
 
-$ cat example_redirect.tfvars
+$ cat terraform.tfvars
 region          = "ap-northeast-2"
 site_name       = "example-redirect"
 site_domain     = "example.com"
@@ -119,13 +119,13 @@ redirect_domain = "www.example.com"
 ```
 6. Terraform을 이용하여 구성될 인스턴스 계획(plan)을 확인하고, CloudFront, S3 등의 인스턴스를 생성 (apply)
 ```bash
-$ terraform plan -var-file example_redirect.tfvars
-$ terraform apply -var-file example_redirect.tfvars
+$ terraform plan
+$ terraform apply
 ```
 7. ```terraform apply``` 수행 결과 발생한 오류를 해결하기 위해 ACM 콘솔에서 DNS 인증 작업 수행
 8. ACM 관리자에서 정상적으로 도메인이 발급되었다면, 다시 한번 `terraform apply` 명령을 실행하여 구성을 마무리
 ```bash
-$ terraform apply -var-file example_redirect.tfvars
+$ terraform apply
 ```
 9. 사이트 정상 접속 확인
 ```bash
