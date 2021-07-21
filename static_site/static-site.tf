@@ -101,3 +101,17 @@ resource "aws_cloudfront_distribution" "site_cloudfront" {
     }
   }
 }
+
+
+output "site_cdn_root_id" {
+  description = "CloudFront Distribution ID"
+  value       = aws_cloudfront_distribution.site_cloudfront.id
+}
+output "site_cdn_domain_name" {
+  description = "CloudFront Distribution ID"
+  value       = aws_cloudfront_distribution.site_cloudfront.domain_name
+}
+output "site_s3_bucket" {
+  description = "Site S3 Bucket id"
+  value       = aws_s3_bucket.site_bucket.bucket
+}

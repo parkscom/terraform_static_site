@@ -89,9 +89,19 @@ Error: error creating CloudFront Distribution: InvalidViewerCertificate: The spe
 8. ACM 관리자에서 정상적으로 도메인이 발급되었다면, 다시 한번 `terraform apply` 명령을 실행하여 구성을 마무리합니다.
 ```
 $ terraform apply
+...
+site_cdn_domain_name = "drkk0f89lqe9n.cloudfront.net"
+site_cdn_root_id = "E2AAO0OYTP2AG2"
+site_s3_bucket = "example-com-tf-site-tf"
 ```
 
-9. 이제 [AWS S3 콘솔](https://console.aws.amazon.com/acm/) 또는 AWS CLI를 이용하여 HTML과 이미지 파일 등의 컨텐츠를 업로드합니다. 사이트의 시작 페이지는 index.html로 지정합니다. 컨텐츠 업로드가 완료되면, https://www.example.com/로 접속하여 사이트가 정상적으로 동작하는지 확인합니다.
+9. `terraform appy` 실행 결과로 나온 `site_cdn_domain_name` 값을 이용하여 DNS에 해당 도메인을 CNAME으로 설정합니다. Route53을 이용할 경우 [Route53 가이드](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html)를 참고합니다.
+```
+# DNS Record
+www.example.com IN CNAME drkk0f89lqe9n.cloudfront.net
+```
+
+10. 이제 [AWS S3 콘솔](https://console.aws.amazon.com/acm/) 또는 AWS CLI를 이용하여 HTML과 이미지 파일 등의 컨텐츠를 업로드합니다. 사이트의 시작 페이지는 index.html로 지정합니다. 컨텐츠 업로드가 완료되면, https://www.example.com/로 접속하여 사이트가 정상적으로 동작하는지 확인합니다.
 
 
 Terraform을 이용한 도메인의 Redirect 설정
@@ -127,8 +137,13 @@ $ terraform apply
 8. ACM 관리자에서 정상적으로 도메인이 발급되었다면, 다시 한번 `terraform apply` 명령을 실행하여 구성을 마무리
 ```bash
 $ terraform apply
+...
+site_cdn_domain_name = "drkk0f89lqe9n.cloudfront.net"
+site_cdn_root_id = "E2AAO0OYTP2AG2"
+site_s3_bucket = "example-com-tf-site-tf"
 ```
-9. 사이트 정상 접속 확인
+9. DNS 레코드를 CloudFront 도메인으로 연결합니다.
+10. 사이트 정상 접속 확인
 ```bash
 $ curl -v "https://example.com/"
 ...
