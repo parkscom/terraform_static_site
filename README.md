@@ -6,9 +6,9 @@ AWS Terraform을 이용한 Static website 구축 템플릿
 
 주요 특징
 ------------
+- 소규모의 순수 HTML을 이용한 사이트를 구축하기 위해서 알맞습니다.
 - https를 지원합니다. https(TLS/SSL) 서비스를 구축하기 위한 별도의 인증서(Certfication)이 불필요합니다. 인증서는 AWS ACM(AWS Certificate Manager)을 통해서 발급 받아 사용합니다. 추가 비용이 들지 않고(free), 인증서 갱신이 AWS ACM 서비스를 통해서 자동으로 이루어집니다.
-- 소규모의 순수 HTML 사이트를 구축하기 위해서 알맞습니다.
-- 도메인 Redirect 기능은 보통 https://www.example.com 사이트를 구축해둔 상태에서, 보조 도메인인 https://www.example.co.kr을 접속한 사용자를 자동으로 redirect 시키는 기능으로 사용합니다. 물론, 2개의 도메인을 1개의 IP를 바라보도록 구축할 수도 있지만, https를 사용할 경우 인증서 충돌이 나서 정상적으로 동작하지 않습니다. (`https://www.example.com`에서 발급 받은 SSL 인증서는 example.co.kr 도메인에서 사용할 수 없습니다.) 또한 `https://www.example.com` 도메인을 구축하였지만, `https://example.com`으로 접속한 사용자를 `https://www.example.com` 도메인으로 유도하는 경우도 사용 가능합니다.
+- 도메인 Redirect 기능은  `https://www.example.com` 도메인을 구축하였지만, `https://example.com`으로 접속한 사용자를 `https://www.example.com` 도메인으로 유도하는 경우에 사용합니다.
 - AWS S3는 이미지와 같은 static content를 저장하고, Public으로 access할 수는 있지만, 사용자 도메인 설정과 https 설정이 불가능합니다. 이 부분을 해결하기 위해서 CloudFront를 사용합니다. CloudFront는 네트워크 종량제 서비스이므로 네트워크 사용량만큼 비용이 지불됩니다. 네트워크 사용에 따른 비용은 일반적으로 S3에 비해서 같거나 작습니다.
 
 사용되는 AWS 구성 요소
